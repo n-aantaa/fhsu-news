@@ -1,8 +1,8 @@
 {
   "name": "FHSU News",
   "short_name": "FN",
-  "description": "Manage your daily tasks",
-  "start_url": "pages/index.html",
+  "description": "Get live news from FHSU",
+  "start_url": "/pages/index.html",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -25,18 +25,11 @@
 
   "shortcuts": [
     {
-      "name": "Add Task",
-      "short_name": "New Task",
-      "description": "Quickly add a new task",
-      "url": "/new-task",
-      "icons": [{ "src": "/img/icons/icon-192x192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "View Completed Tasks",
-      "short_name": "Completed",
-      "description": "View all completed tasks",
-      "url": "/completed",
-      "icons": [{ "src": "/img/icons/icon-192x192.png", "sizes": "192x192" }]
+      "name": "Read more",
+      "short_name": "More",
+      "description": "Read the full article",
+      "url": "/article",
+      "icons": [{ "src": "/images/logo.png", "sizes": "192x192" }]
     }
   ]
 }
