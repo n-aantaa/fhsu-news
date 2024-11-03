@@ -1,0 +1,42 @@
+{
+  "name": "FHSU News",
+  "short_name": "FN",
+  "description": "Manage your daily tasks",
+  "start_url": "pages/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#DAA520",
+  "theme_color": "#FFF",
+  "dir": "ltr",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/images/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Add Task",
+      "short_name": "New Task",
+      "description": "Quickly add a new task",
+      "url": "/new-task",
+      "icons": [{ "src": "/img/icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "View Completed Tasks",
+      "short_name": "Completed",
+      "description": "View all completed tasks",
+      "url": "/completed",
+      "icons": [{ "src": "/img/icons/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}
