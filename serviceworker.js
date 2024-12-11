@@ -1,7 +1,7 @@
 const CACHE_NAME = "fhsu-news-v1";
 
 const ASSETS_TO_CACHE = [
-    "/pages/about.html",
+    "./pages/contact.html",
     "/pages/athletics.html",
     "/pages/gallery.html",
     "/pages/index.html",
@@ -16,6 +16,7 @@ self.addEventListener("install", (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             console.log("Service worker: caching files");
+            console.log(ASSETS_TO_CACHE);
             return cache.addAll(ASSETS_TO_CACHE);
         })
     );
