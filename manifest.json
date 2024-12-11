@@ -30,6 +30,13 @@
       "description": "Read the full article",
       "url": "/article",
       "icons": [{ "src": "/images/logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Add contribution",
+      "short_name": "Contribution",
+      "description": "Add a contribution for an article",
+      "url": "/contact",
+      "icons": [{ "src": "/images/logo.png", "sizes": "192x192" }]
     }
   ]
 }

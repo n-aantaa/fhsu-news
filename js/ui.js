@@ -4,8 +4,8 @@ import {
     getContributionsFromFirebase,
     deleteContributionFromFirebase,
     updateContributionInFirebase,
-} from "./firebaseDB.js";
-import { messaging, getToken } from "./firebaseConfig.js";
+} from "./firebaseDB.js"
+// import { messaging, getToken } from "./firebaseConfig.js";
 import { onMessage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js";
 
 const STORAGE_THRESHOLD = 0.8;
@@ -246,12 +246,11 @@ function displayContribution(contribution) {
     );
 }
 
-const addContributionButton = document.querySelector("#form-action-btn");
+const addContributionButton = document.getElementById("submit-btn");
 addContributionButton.addEventListener("click", async () => {
-    const titleInput = document.querySelector("#title");
-    const detailsInput = document.querySelector("#details");
-    const contributionIdInput = document.querySelector("#contribution-id");
-    const formActionButton = document.querySelector("#form-action-btn");
+    const titleInput = document.getElementById("title");
+    const detailsInput = document.getElementById("details");
+    const formActionButton = document.getElementById("submit-btn");
 
     const contributionId = contributionIdInput.value;
     const contributionData = {
@@ -267,8 +266,67 @@ addContributionButton.addEventListener("click", async () => {
         loadContributions();
     }
     formActionButton.textContent = "Add";
-    closeForm();
 });
+
+
+// Function to check storage usage
+async function checkStorageUsage() {
+    if (navigator.storage && navigator.storage.estimate) {
+        const { usage, quota } = await navigator.storage.estimate();
+        const usageInMB = (usage / (1024 * 1024)).toFixed(2); // Convert to MB
+        const quotaInMB = (quota / (1024 * 1024)).toFixed(2); // Convert to MB
+
+        console.log(`Storage used: ${usageInMB} MB of ${quotaInMB} MB`);
+
+        const storageInfo = document.querySelector("#storage-info");
+        if (storageInfo) {
+            storageInfo.textContent = `Storage used: ${usageInMB} MB of ${quotaInMB} MB`;
+        }
+
+        if (usage / quota > 0.8) {
+            const storageWarning = document.querySelector("#storage-warning");
+            if (storageWarning) {
+                storageWarning.textContent =
+                    "Warning: You are running low on storage space. Please delete old objects to free up space.";
+                storageWarning.style.display = "block";
+            }
+        } else {
+            const storageWarning = document.querySelector("#storage-warning");
+            if (storageWarning) {
+                storageWarning.textContent = "";
+                storageWarning.style.display = "none";
+            }
+        }
+    }
+}
+
+// Function to request persistent storage
+async function requestPersistentStorage() {
+    if (navigator.storage && navigator.storage.persist) {
+        const isPersistent = await navigator.storage.persist();
+        console.log(`Persistent storage granted: ${isPersistent}`);
+
+        const storageMessage = document.querySelector("#persistent-storage-info");
+        if (storageMessage) {
+            if (isPersistent) {
+                storageMessage.textContent =
+                    "Persistent storage granted. Your data is safe!";
+                storageMessage.classList.remove("red-text");
+                storageMessage.classList.add("green-text");
+            } else {
+                storageMessage.textContent =
+                    "Persistent storage not granted. Data might be cleared under storage pressure.";
+                storageMessage.classList.remove("green-text");
+                storageMessage.classList.add("red-text");
+            }
+        }
+    }
+}
+
+// Event listener to detect online status and sync
+window.addEventListener("online", syncContributions);
+window.addEventListener("online", loadContributions);
+
 
 
 

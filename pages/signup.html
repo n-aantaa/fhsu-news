@@ -1,10 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Sign Up - FHSU News</title>
 </head>
 <body>
+<header>
+    <div>
+        <h2 class="title center">
+            <a href="#" class="brand-logo left">
+                <img src="../images/logo.png" alt="">
+            </a>
+        </h2>
+    </div>
 
+</header>
+
+<main class="valign-wrapper" style="min-height: 80vh;">
+    <div class="container z-depth-2 white" style="padding: 2rem; max-width: 500px;">
+        <h4 class="center goldenrod-text text-darken-2">Login to FHSU News</h4>
+        <form>
+            <div class="input-field">
+                <i class="material-icons prefix">account_circle</i>
+                <input type="text" id="name" required>
+                <label for="name">Name</label>
+            </div>
+            <div class="input-field">
+                <i class="material-icons prefix">account_circle</i>
+                <input type="text" id="username" required>
+                <label for="username">Username</label>
+            </div>
+            <div class="input-field">
+                <i class="material-icons prefix">lock</i>
+                <input type="password" id="password" required>
+                <label for="password">Password</label>
+            </div>
+            <div class="center">
+                <button id="login-btn" class="btn goldenrod darken-2 waves-effect waves-light" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer class="page-footer ">
+    <div class="container center-align">
+        <p>&copy; 2024 FHSU News - All rights reserved</p>
+    </div>
+</footer>
+
+<script src="../js/index.js"></script>
+<script type="module" src="../js/ui.js"></script>
+<script type="module" src="../js/auth.js"></script>
+<script type="module" src="../js/firebaseDB.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

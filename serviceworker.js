@@ -1,13 +1,50 @@
-const CACHE_NAME = "fhsu-news-v1";
+// Import Firebase libraries using importScripts
+importScripts(
+    "https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"
+);
+importScripts(
+    "https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging-compat.js"
+);
+
+// Initialize Firebase in the service worker
+firebase.initializeApp({
+    apiKey: "AIzaSyDT8QtVJWKKiWupHjjR784KwTKee2CiugA",
+    authDomain: "fhsu-news.firebaseapp.com",
+    projectId: "fhsu-news",
+    storageBucket: "fhsu-news.firebasestorage.app",
+    messagingSenderId: "459375271581",
+    appId: "1:459375271581:web:d2b3489e0cc55e0793be74",
+    measurementId: "G-E87KHQKESH"
+});
+
+// Retrieve Firebase Messaging instance
+const messaging = firebase.messaging();
+
+// Handle background messages
+messaging.onBackgroundMessage(function (payload) {
+    console.log("[serviceworker.js] Received background message ", payload);
+    const notificationTitle = payload.notification.title;
+    const notificationOptions = {
+        body: payload.notification.body,
+        icon: "/images/logo.png",
+    };
+    self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+const CACHE_NAME = "fhsu-news-v3";
 
 const ASSETS_TO_CACHE = [
-    "./pages/contact.html",
+    "/pages/index.html",
+    "/pages/contact.html",
+    "/pages/contributions.html",
+    "/pages/login.html",
+    "/pages/signup.html",
     "/pages/athletics.html",
     "/pages/gallery.html",
-    "/pages/index.html",
     "/pages/news.html",
     "/css/styles.css",
-    "/js/index.js",
+    "/js/materialize.min.js",
+    "/js/ui.js",
     "/images/logo.png",
 ];
 
@@ -64,4 +101,27 @@ self.addEventListener("fetch", (event) => {
             }
         })()
     );
+
+
+});
+// Listen for messages from ui.js
+self.addEventListener("message", (event) => {
+    if (event.data && event.data.type === "FCM_TOKEN") {
+        const fcmToken = event.data.token;
+        console.log("Received FCM token in service worker:", fcmToken);
+        // Here you might store or use the token as needed for push notifications
+    }
+});
+
+// Display notification for background messages
+self.addEventListener("push", (event) => {
+    if (event.data) {
+        const payload = event.data.json();
+        const {title, body, icon} = payload.notification;
+        const options = {
+            body,
+            icon: icon || "/img/icons/icon-192x192.png",
+        };
+        event.waitUntil(self.registration.showNotification(title, options));
+    }
 });

@@ -10,8 +10,7 @@ import {
     doc,
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-// Add a task
-export async function addTaskToFirebase(task) {
+export async function addContributionToFirebase(contribution) {
     try {
         if (!currentUser) {
             throw new Error("User is not authenticated");
@@ -22,59 +21,59 @@ export async function addTaskToFirebase(task) {
         await setDoc(
             userRef,
             {
-                email: currentUser.email,
+                username: currentUser.username,
                 name: currentUser.displayName,
             },
             { merge: true }
         );
-        const tasksRef = collection(userRef, "tasks");
-        const docRef = await addDoc(tasksRef, task);
-        return { id: docRef.id, ...task };
+        const contributionsRef = collection(userRef, "contributions");
+        const docRef = await addDoc(contributionsRef, contribution);
+        return { id: docRef.id, ...contribution };
     } catch (e) {
-        console.error("Error adding task: ", e);
+        console.error("Error adding: ", e);
     }
 }
 
-export async function getTasksFromFirebase() {
-    const tasks = [];
+export async function getContributionsFromFirebase() {
+    const contributions = [];
     try {
         if (!currentUser) {
             throw new Error("User is not authenticated");
         }
         const userId = currentUser.uid;
-        const taskRef = collection(doc(db, "users", userId), "tasks");
-        const querySnapshot = await getDocs(taskRef);
+        const contributionsRef = collection(doc(db, "users", userId), "contributions");
+        const querySnapshot = await getDocs(contributionsRef);
         querySnapshot.forEach((doc) => {
-            tasks.push({ id: doc.id, ...doc.data() });
+            contributions.push({ id: doc.id, ...doc.data() });
         });
     } catch (e) {
-        console.error("Error retrieving tasks: ", e);
+        console.error("Error retrieving: ", e);
     }
-    return tasks;
+    return contributions;
 }
 
-export async function deleteTaskFromFirebase(id) {
+export async function deleteContributionFromFirebase(id) {
     try {
         if (!currentUser) {
             throw new Error("User is not authenticated");
         }
         const userId = currentUser.uid;
-        await deleteDoc(doc(db, "users", userId, "tasks", id));
+        await deleteDoc(doc(db, "users", userId, "contributions", id));
     } catch (e) {
-        console.error("Error deleting task: ", e);
+        console.error("Error deleting: ", e);
     }
 }
 
-export async function updateTaskInFirebase(id, updatedData) {
+export async function updateContributionInFirebase(id, updatedData) {
     console.log(updatedData, id);
     try {
         if (!currentUser) {
             throw new Error("User is not authenticated");
         }
         const userId = currentUser.uid;
-        const taskRef = doc(db, "users", userId, "tasks", id);
-        await updateDoc(taskRef, updatedData);
+        const contributionsRef = doc(db, "users", userId, "contributions", id);
+        await updateDoc(contributionsRef, updatedData);
     } catch (e) {
-        console.error("Error updating task: ", e);
+        console.error("Error updating: ", e);
     }
 }

@@ -3,7 +3,7 @@ import {
     onAuthStateChanged,
     signOut,
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { loadTasks, syncTasks } from "./ui.js";
+import {loadContributions, syncContributions} from "./ui.js";
 
 export let currentUser = null;
 
@@ -15,20 +15,19 @@ document.addEventListener("DOMContentLoaded", () => {
         if (user) {
             // User is signed in.
             currentUser = user;
-            console.log("User ID: ", user.uid);
-            console.log("Email: ", user.email);
+            console.log("Username: ", user.username);
             console.log("name: ", user.displayName);
 
             if (logoutBtn) {
                 logoutBtn.style.display = "block";
             }
-            loadTasks();
-            syncTasks();
+            loadContributions();
+            syncContributions();
         } else {
             // No user is signed in.
             console.log("No user is currently signed in.");
             // If the user is not signed in, redirect to the auth page
-            window.location.href = "/pages/auth.html";
+            // window.location.href = "/pages/login.html";
         }
     });
 

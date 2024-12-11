@@ -56,3 +56,18 @@ main {
     width: 20%;
     margin: 2rem;
 }
+
+@media (max-width: 800px) {
+    .column{
+        width: 100%;
+    }
+    .title{
+        font-size: 2rem;
+    }
+    .brand-logo img{
+        margin:0;
+    }
+    h2{
+        margin: 0;
+    }
+}
